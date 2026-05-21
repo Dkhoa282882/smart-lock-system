@@ -6,3 +6,7 @@ This system uses ESP32 microcontroller . The system provides authentication meth
 * **Administrative Configuration:** Allows the administrator to change the master password, enroll new fingerprints with automatically assigned IDs, and delete existing fingerprint templates on the device.
 * **Integrated Local Web Server:** Configures the ESP32 to act as a web server, allowing users to remotely control the system and monitor its status from any device within the local network.
 * **Runtime Access Logging:** Tracks and records system events ( Opened Door , Enroll new fingerprint,...) with relative timestamps to  monitor activity.
+<p align="center">
+  <img width="50%" alt="hethongvantay" src="https://github.com/user-attachments/assets/a685f27a-fdeb-41fb-9afb-9627b5b27902" />
+  <img width="40%" alt="menu" src="https://github.com/user-attachments/assets/166e666b-7061-4423-963f-2d8e3f24d3c3" />
+</p>
