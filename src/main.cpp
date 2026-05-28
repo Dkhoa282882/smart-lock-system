@@ -8,6 +8,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 
+
 // EEPROM settings
 #define EEPROM_SIZE 64
 #define PASSWORD_ADDR 0
@@ -56,6 +57,19 @@ unsigned long firstStarPressTime = 0;
 unsigned long doorOpenStart = 0;
 unsigned long wifiStart = millis();
 bool waitingForSecondStar = false;
+
+
+void handleLock();
+void handleUnlock();
+void handleGetLogs();
+void showMenu();
+void addLog(String action);
+void handleFingerprint();
+void handleKeypad();
+void handleCORS();
+void handleChangePassword(char key);
+void registerFingerprint();
+void deleteFingerprint(char key);
 
 
 void savePasswordToEEPROM(const String password) {
@@ -164,7 +178,7 @@ noTone(buzzerPin);
 
 void openDoor() {
   beepSuccess();
-  lcd.clear();lcd.setCursor(0, 0);lcd.print(" Dang mo cua...");Serial.print('Dang mo cua');
+  lcd.clear();lcd.setCursor(0, 0);lcd.print(" Dang mo cua...");Serial.print("Dang mo cua");
   digitalWrite(relayPin, HIGH);
   doorOpening = true;
   doorOpenStart = millis();  
