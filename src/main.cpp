@@ -68,8 +68,9 @@ void handleFingerprint();
 void handleKeypad();
 void handleCORS();
 void handleChangePassword(char key);
+void openDoor(String writelog);
 void registerFingerprint();
-void deleteFingerprint(char key);
+void deleteFingerprint();
 
 
 void savePasswordToEEPROM(const String password) {
@@ -176,13 +177,13 @@ delay(100);
 noTone(buzzerPin);
 }
 
-void openDoor() {
+void openDoor(String writelog) {
   beepSuccess();
   lcd.clear();lcd.setCursor(0, 0);lcd.print(" Dang mo cua...");Serial.print("Dang mo cua");
   digitalWrite(relayPin, HIGH);
   doorOpening = true;
   doorOpenStart = millis();  
-  addLog("Door unlocked (local)");
+  addLog("writelog");
 }
 void handleDoorState() {
   if(doorOpening){
@@ -219,7 +220,7 @@ void handlePasswordInput(char key) {
       if (key == '#') {
         if (inputPassword == correctPassword) {
           lcd.clear();lcd.setCursor(0, 0);lcd.print("Xac thuc MK");
-          lcd.setCursor(0, 1);lcd.print("thanh cong !");delay(1500);openDoor();
+          lcd.setCursor(0, 1);lcd.print("thanh cong !");delay(1500);openDoor("Door Unlock (Local)");
         } else {
           failedAttempts++;
           beepError();lcd.clear();lcd.setCursor(0, 0);lcd.print("Sai mat khau!");addLog("Fail Door unlocked (Local )");
@@ -332,11 +333,7 @@ void handleUnlock() {
   if(server.hasArg("key") && server.arg("key") == apiKey){
   server.send(200, "text/plain", "Da mo cua");
   systemLocked = false;
-  lcd.clear();lcd.setCursor(0, 0);lcd.print("Dang mo cua...");
-  digitalWrite(relayPin , HIGH);
-  doorOpening = true;
-  doorOpenStart = millis();  
-  addLog("Door unlocked (API)");
+  openDoor("Door Open (API)");
   } else {
    server.send(403, "text/plain", "Access denied");
   }
@@ -398,7 +395,7 @@ void handleFingerprintMode(char key) {
     }
   } 
    else if (key == '#') {
-    deleteFingerprint(key);
+    deleteFingerprint();
   }
 }
 
@@ -485,7 +482,7 @@ void registerFingerprint(){
   delay(2000);showFingerprintMenu();
 }
 
-void deleteFingerprint(char key){
+void deleteFingerprint(){
 int p = -1;
   lcd.clear();lcd.setCursor(0, 0);lcd.print("Dat ngon tay...");
   while (p != FINGERPRINT_OK) {
