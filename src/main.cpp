@@ -149,7 +149,7 @@ void setup() {
   showMenu();
 }
 
-void showMenu() {
+void showMenu() { // menu tuỳ chọn
   lcd.clear();lcd.setCursor(0, 0);lcd.print("1: Nhap Mat khau");
   lcd.setCursor(0, 1);lcd.print("2: Van tay");
   mode = 0;
@@ -160,7 +160,7 @@ void showMenu() {
   starCount = 0;
   waitingForSecondStar = false;
 }
-void showFingerprintMenu() {
+void showFingerprintMenu() {// menu tuỳ trọn trong mode vân tay
   lcd.clear();lcd.setCursor(0, 0);lcd.print("1: Xac thuc ");
   lcd.setCursor(0, 1);lcd.print("*:Dang ky|#:Xoa");
   mode = 2;  
@@ -600,7 +600,7 @@ void loop() {
     server.handleClient();
     lastServerHandle = millis();
   }
-   if (systemLocked) {
+   if (systemLocked) {// hệ thống bị khoá khi có lệnh khoá từ ứng dụng
     delay(100);
     return;
   }
@@ -615,10 +615,10 @@ void loop() {
         lcd.setCursor(0, 1);lcd.print("*:Dang ky|#:Xoa");
       }
     } else if (mode == 1) {
-      handlePasswordInput(key);
+      handlePasswordInput(key);// vào chế độ nhập mật khẩu(line 199)
     }
       else if (mode == 2) {    
-      handleFingerprintMode(key); 
+      handleFingerprintMode(key); // vào chế độ dùng vân tay(line 379)
     }
   }
  if (waitingForSecondStar && millis() - firstStarPressTime > 5000) {
